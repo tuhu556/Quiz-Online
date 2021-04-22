@@ -71,7 +71,7 @@ public class HistoryDAO {
         try {
             conn = util.getCon();
             ps = conn.prepareStatement(query);
-            ps.setInt(1, 28);
+            ps.setInt(1, quizID);
             rs = ps.executeQuery();
             while (rs.next()) {
                 int detailID = rs.getInt(1);

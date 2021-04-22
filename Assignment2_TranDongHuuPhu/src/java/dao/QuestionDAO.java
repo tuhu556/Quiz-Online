@@ -102,6 +102,7 @@ public class QuestionDAO {
             }
         }
     }
+
     public void deleteQues(String ID) throws ClassNotFoundException, SQLException {
         Connection conn = null;
         PreparedStatement stm = null;
@@ -126,6 +127,7 @@ public class QuestionDAO {
             }
         }
     }
+
     public void setProcess(String ID, boolean process) throws ClassNotFoundException, SQLException {
         Connection conn = null;
         PreparedStatement stm = null;
@@ -228,6 +230,7 @@ public class QuestionDAO {
         }
         return list;
     }
+
     public List<QuestionDTO> getQuestion1(String ID) throws SQLException {
         Connection conn = null;
         PreparedStatement ps = null;
@@ -271,7 +274,7 @@ public class QuestionDAO {
         return list;
     }
 
-    public int getNumberPage() throws SQLException {
+    public int getNumberPage(String search, String subject, String txtStatus) throws SQLException {
         Connection conn = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
@@ -279,8 +282,11 @@ public class QuestionDAO {
         try {
             conn = DBUtils.getCon();
             if (conn != null) {
-                String sql = "select COUNT(questionID) from tblQuestions";
+                String sql = "select COUNT(questionID) from tblQuestions where questionContent like ? AND subjectID like ? AND status = ?";
                 ps = conn.prepareStatement(sql);
+                ps.setString(1, "%" + search + "%");
+                ps.setString(2, "%" + subject + "%");
+                ps.setString(3, txtStatus);
                 rs = ps.executeQuery();
                 while (rs.next()) {
                     int total = rs.getInt(1);

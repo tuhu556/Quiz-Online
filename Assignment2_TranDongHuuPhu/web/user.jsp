@@ -28,7 +28,7 @@
                     <div class="collapse navbar-collapse" id="navbarsExample01">
                         <ul class="navbar-nav me-auto mb-2">
                             <li class="nav-item active">
-                                <a class="nav-link" aria-current="page" href="history.jsp">History</a>
+                                <a class="nav-link" aria-current="page" href="HistoryController?txtSearch=&userID=${sessionScope.LOGIN_USER.email}">History</a>
                                 <a class="nav-link" aria-current="page" href="LogoutController">Logout</a>
                             </li>
                         </ul>
@@ -38,6 +38,13 @@
         </header>
 
         <main>
+            <br>
+            <center>
+                <c:if test="${sessionScope.LIST_QUIZ != null}">
+                    <a href="quiz.jsp" class="btn btn-warning">Resume Quiz!</a>
+                </c:if>
+            </center>
+            <br>
             <c:set var="sub" value="${sessionScope.SUBJECT}"/>
             <div class="album py-5 bg-light">
                 <div class="container">
@@ -52,7 +59,7 @@
                                             <div class="d-flex justify-content-between align-items-center">
                                                 <div class="btn-group">
                                                     <input type="hidden" name="txtSubjectID" value="${entry.subjectID}">
-                                                    <input type="submit" value="Attempt Quiz Now">
+                                                    <button type="submit" class="btn btn-primary">Attempt Quiz Now</button>
                                                 </div>
                                                 <small class="text-muted">${entry.time} mins</small>
                                             </div>

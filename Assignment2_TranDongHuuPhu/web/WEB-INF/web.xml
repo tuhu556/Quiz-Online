@@ -56,6 +56,10 @@
         <servlet-name>AdminController</servlet-name>
         <servlet-class>controller.AdminController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>BeginPageController</servlet-name>
+        <servlet-class>controller.BeginPageController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginController</servlet-name>
         <url-pattern>/LoginController</url-pattern>
@@ -104,13 +108,17 @@
         <servlet-name>AdminController</servlet-name>
         <url-pattern>/AdminController</url-pattern>
     </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>BeginPageController</servlet-name>
+        <url-pattern>/BeginPageController</url-pattern>
+    </servlet-mapping>
     <session-config>
         <session-timeout>
             30
         </session-timeout>
     </session-config>
     <welcome-file-list>
-        <welcome-file>login.jsp</welcome-file>
+        <welcome-file>BeginPageController</welcome-file>
     </welcome-file-list>
     <resource-ref>
         <description>dbCon</description>

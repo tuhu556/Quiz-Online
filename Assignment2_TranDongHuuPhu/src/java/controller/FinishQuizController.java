@@ -66,10 +66,8 @@ public class FinishQuizController extends HttpServlet {
             List<QuestionDTO> listQ = dto.getList();
             int totalCorrect = 0;
             float totalQuestion = totalPage;
-            System.out.println(totalQuestion);
             float totalPoint = 10;
             float point = 10 / totalQuestion;
-            System.out.println(point);
             for (UserAnswerDTO l : list) {
                 for (QuestionDTO a : listQ) {
                     if (l.getQuestionID().equalsIgnoreCase(a.getQuestionID())) {
@@ -88,7 +86,7 @@ public class FinishQuizController extends HttpServlet {
             int quizID = dao.createQuiz(result);
             System.out.println(totalPoint);
             for (UserAnswerDTO l : list) {
-                if (l.getAnwser().equalsIgnoreCase("")){
+                if (l.getAnwser()== null){
                     l.setAnwser("No Answer");
                 }
                 dao.createDetail(Integer.parseInt(l.getQuestionID()), l.getAnwser(), quizID);
@@ -96,6 +94,7 @@ public class FinishQuizController extends HttpServlet {
 
             request.setAttribute("RESULT", result);
             session.removeAttribute("QUIZ");
+            session.removeAttribute("LIST_QUIZ");
             url = SUCCESS;
 
         } catch (Exception e) {

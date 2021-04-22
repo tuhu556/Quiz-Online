@@ -5,8 +5,10 @@
  */
 package controller;
 
+import dao.QuestionDAO;
+import dto.QuestionDTO;
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -36,6 +38,13 @@ public class LogoutController extends HttpServlet {
         String url = LOGIN;
         try {
             HttpSession ss = request.getSession(false);
+            List<QuestionDTO> list = (List<QuestionDTO>) ss.getAttribute("LIST_QUIZ");
+            if (list != null){
+                QuestionDAO quesDao = new QuestionDAO();
+                for (QuestionDTO ques : list) {
+                    quesDao.setProcess(ques.getQuestionID(), false);
+                }
+            }
             if (ss != null) {
                 ss.invalidate();
                 url = LOGIN;

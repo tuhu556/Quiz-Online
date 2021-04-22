@@ -44,7 +44,7 @@
             <div>
                 <c:set var="sub" value="${sessionScope.SUBJECT}"/> 
                 <form action="SearchController">
-                    Search: <input type="text" name="txtSearch" value="${param.search}" class="search"/>
+                    Search: <input type="text" name="txtSearch" value="${param.txtSearch}" class="search"/>
                     <input type="submit" name="btnAction" value="Search"/>
                     <select id="categoryCmb" name="Subject">
                         <option value="">All</option>
@@ -126,12 +126,11 @@
                         </table>
                         <br>
                         <!---------paging-------->
-                        <jsp:useBean id="a" class="dao.QuestionDAO" scope="request"></jsp:useBean>
                         <c:if test="${a.numberPage != 0}">
                             <div class="paging">
                                 <nav aria-label="Page navigation example">
                                     <ul class="pagination">
-                                        <c:forEach begin="1" end="${a.numberPage}" var="i">
+                                        <c:forEach begin="1" end="${requestScope.totalPages}" var="i">
                                             <c:url var="page" value="SearchController">
                                                 <c:param name="btnAction" value="Search"></c:param>
                                                 <c:param name="txtSearch" value="${requestScope.search}"></c:param>

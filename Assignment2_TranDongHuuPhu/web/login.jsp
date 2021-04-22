@@ -18,7 +18,7 @@
             <div class="container">
                 <div class="signin-content">
                     <div class="signin-image">
-                        <figure><img src="images/back.jpg" alt="sing up image"></figure>
+                        <figure><img src="images/signin-image.jpg" alt="sing up image"></figure>
                         <a href="signup.jsp" class="signup-image-link">Create an account</a>
                     </div>
 
@@ -31,11 +31,11 @@
                             <br>
                             <div class="form-group">
                                 <label for="your_name"><i class="fas fa-user"></i></label>
-                                <input type="text" name="txtEmail" id="your_name" placeholder="Your Email" required/>
+                                <input type="text" name="txtEmail" id="your_name" value="${param.txtEmail}" placeholder="Your Email" required/>
                             </div>
                             <div class="form-group">
                                 <label for="your_pass"><i class="fas fa-key"></i></label>
-                                <input type="password" name="txtPassword" id="your_pass" placeholder="Password" required/>
+                                <input type="password" name="txtPassword" id="your_pass" value="${param.txtPassword}" placeholder="Password" required/>
                             </div>
                             <div class="form-group">
                                 <input type="checkbox" name="remember-me" id="remember-me" class="agree-term" />
@@ -45,12 +45,6 @@
                                 <input type="submit" name="btnAction" value="Login" id="signin" class="form-submit"/>
                             </div>
                         </form>
-                        <div class="social-login">
-                            <span class="social-label">Or login with</span>
-                            <ul class="socials">
-                                <li><a href="#"><i class="fab fa-google"></i></a></li>
-                            </ul>
-                        </div>
                     </div>
                 </div>
             </div>

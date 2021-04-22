@@ -43,28 +43,28 @@ public class SearchController extends HttpServlet {
             String index = request.getParameter("index");
             String subject = request.getParameter("Subject");
             String txtStatus = request.getParameter("status");
-            System.out.println(txtStatus);
-            if (search== null) {
+            if (search == null) {
                 search = "";
             }
-            if (subject== null) {
+            if (subject == null) {
                 subject = "";
             }
             if (index == null) {
                 index = "1";
             }
-            if (txtStatus == null){
+            if (txtStatus == null) {
                 txtStatus = "True";
             }
             int indexPage = Integer.parseInt(index);
             QuestionDAO dao = new QuestionDAO();
+            int numberPage = dao.getNumberPage(search, subject, txtStatus);
             List<QuestionDTO> list = dao.getQuestion(indexPage, search, subject, txtStatus);
             if (list != null) {
+                request.setAttribute("totalPages", numberPage);
                 request.setAttribute("search", search);
                 request.setAttribute("sub", subject);
                 request.setAttribute("LIST", list);
                 request.setAttribute("status", txtStatus);
-                System.out.println(list);
                 url = SUCCESS;
             } else {
                 url = ERROR;

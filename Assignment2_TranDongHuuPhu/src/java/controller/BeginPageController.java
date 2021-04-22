@@ -5,29 +5,21 @@
  */
 package controller;
 
-import dao.QuestionDAO;
-import dao.QuizDAO;
-import dto.QuestionDTO;
-import dto.QuizDTO;
 import java.io.IOException;
-import java.util.Calendar;
-import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import org.apache.log4j.Logger;
 
 /**
  *
  * @author Admin
  */
-public class AttemptQuizController extends HttpServlet {
+public class BeginPageController extends HttpServlet {
 
-    private static final String SUCCESS = "quiz.jsp";
-    private static final String ERROR = "user.jsp";
-    private static final Logger LOG = Logger.getLogger(AttemptQuizController.class);
+    private static final String BEGIN_PAGE = "login.jsp";
+    private static final Logger LOG = Logger.getLogger(BeginPageController.class);
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -41,39 +33,8 @@ public class AttemptQuizController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String url = ERROR;
+        String url = BEGIN_PAGE;
         try {
-            String subjectID = request.getParameter("txtSubjectID");
-
-            QuizDAO dao = new QuizDAO();
-            int numberOfQues = dao.getNumberOfQuestion(subjectID);
-            int timing = dao.getTime(subjectID);
-            HttpSession session = request.getSession();
-            List<QuestionDTO> list = dao.getQuestionRamdom(numberOfQues, subjectID);
-
-            if (list.size() == 0 || numberOfQues == 0) {
-                url = "errorQuiz.html";
-            }
-            else if (session.getAttribute("LIST_QUIZ") != null) {
-                url = ERROR;
-            } else {
-                QuizDTO quiz = new QuizDTO();
-                QuestionDAO quesDao = new QuestionDAO();
-                Calendar time = Calendar.getInstance();
-                quiz.setStartTime(time.getTime());
-                time.add(Calendar.MINUTE, timing);
-                quiz.setEndTime(time.getTime());
-                quiz.setList(list);
-                quiz.setSubject(subjectID);
-                for (QuestionDTO ques : list) {
-                    quesDao.setProcess(ques.getQuestionID(), true);
-                }
-                session.setAttribute("LIST_QUIZ", list);
-                session.setAttribute("QUIZ", quiz);
-                session.setAttribute("TOTAL_PAGE", numberOfQues);
-                session.setAttribute("SUB", subjectID);
-                url = SUCCESS;
-            }
 
         } catch (Exception e) {
             LOG.error(e);

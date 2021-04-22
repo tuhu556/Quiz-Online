@@ -28,7 +28,7 @@
                     <div class="collapse navbar-collapse" id="navbarsExample01">
                         <ul class="navbar-nav me-auto mb-2">
                             <li class="nav-item active">
-                                <a class="nav-link" aria-current="page" href="history.jsp">History</a>
+                                <a class="nav-link" aria-current="page" href="HistoryController?txtSearch=&userID=${sessionScope.LOGIN_USER.email}">History</a>
                                 <a class="nav-link" aria-current="page" href="LogoutController">Logout</a>
                             </li>
                         </ul>
@@ -38,12 +38,16 @@
         </header>
 
         <main>
-            <form action="HistoryController">
-                Search: <input type="text" name="txtSearch" value="${param.search}" class="search"/>
-                <input type="submit" value="Search"/>
-                <input type="hidden" name="userID" value="${sessionScope.LOGIN_USER.email}"/>
+            <br>
+            <center>
+                <form action="HistoryController">
+                    Subject: <input type="text" name="txtSearch" value="${param.search}" class="search"/>
+                    <button type="submit" class="btn btn-info">Search</button>
+                    <input type="hidden" name="userID" value="${sessionScope.LOGIN_USER.email}"/>
+                </form>
+            </center>
 
-            </form>
+            <br>
             <c:set var="list" value="${requestScope.HISTORY}"></c:set>
             <c:if test="${list!=null}">
                 <c:if test="${not empty list}">
@@ -70,7 +74,7 @@
                                     <td>${result.totalCorrect}/${result.totalQuestion}</td>
                                     <td>${result.mark}</td>
                                     <td><input type="submit" value="Detail"></td>
-                                    <input type="hidden" name="quizID" value="${result.quizID}"/>
+                                <input type="hidden" name="quizID" value="${result.quizID}"/>
                                 </tr>
                             </form>
                         </c:forEach>
@@ -87,9 +91,7 @@
                                             <c:param name="index" value="${i}"></c:param>
                                         </c:url>
                                         <li class="page-item"><a class="page-link" href="${page}">${i}</a></li>
-
                                     </c:forEach>
-
                                 </ul>
                             </nav>
                         </div>

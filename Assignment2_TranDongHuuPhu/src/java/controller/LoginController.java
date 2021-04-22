@@ -12,7 +12,6 @@ import static controller.SHA_256.toHexString;
 import dao.QuestionDAO;
 import dto.SubjectDTO;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;

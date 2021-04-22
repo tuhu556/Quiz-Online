@@ -148,7 +148,9 @@ public class AuthenFilter implements Filter {
             String uri = req.getRequestURI();
             if (uri.contains(".jpg") || uri.contains(".png") || uri.contains(".gif") || uri.contains(".css")) {
                 chain.doFilter(request, response);
-            } else if (uri.contains("login.jsp") || uri.contains("LoginController") || uri.contains("SignUpController") || uri.contains("signup.jsp")) {
+            } else if (uri.contains("login.jsp") || uri.contains("LoginController")
+                    || uri.contains("SignUpController") || uri.contains("signup.jsp")
+                    || uri.contains("login.css") || uri.contains("quiz.css") || uri.contains("BeginPageController")) {
                 chain.doFilter(request, response);
                 return;
             }
