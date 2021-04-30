@@ -43,108 +43,126 @@
         <main>
             <div>
                 <c:set var="sub" value="${sessionScope.SUBJECT}"/> 
-                <form action="SearchController">
-                    Search: <input type="text" name="txtSearch" value="${param.txtSearch}" class="search"/>
-                    <input type="submit" name="btnAction" value="Search"/>
-                    <select id="categoryCmb" name="Subject">
-                        <option value="">All</option>
-                        <c:forEach var="entry" items="${sub}">
-                            <option value="${entry.subjectID}" <c:if test="${entry.subjectID eq requestScope.sub}"> selected</c:if>>${entry.subjectID}-${entry.subjectName}</option>   
-                        </c:forEach>
-                    </select>
-                    <select id="statusCmb" name="status">
-                        <option value="True" <c:if test="${'True' == requestScope.status}"> selected</c:if> >True</option>   
-                        <option value="False" <c:if test="${'False' == requestScope.status}"> selected</c:if>>False</option>   
+                <center>
+                    <form action="SearchController">
+                        Question Content: <input name="txtSearch" value="${param.txtSearch}" cols="20">
+                        <select id="categoryCmb" name="Subject">
+                            <option value="">All</option>
+                            <c:forEach var="entry" items="${sub}">
+                                <option value="${entry.subjectID}" <c:if test="${entry.subjectID eq requestScope.sub}"> selected</c:if>>${entry.subjectID}-${entry.subjectName}</option>   
+                            </c:forEach>
                         </select>
-                    </form>
+                        <select id="statusCmb" name="status">
+                            <option value="True" <c:if test="${'True' == requestScope.status}"> selected</c:if> >True</option>   
+                            <option value="False" <c:if test="${'False' == requestScope.status}"> selected</c:if>>False</option>   
+                        </select>
+                            <br>
+                            <br>
+                            <input type="submit" class="btn btn-outline-info" name="btnAction" value="Search"/>
+                        </form>
+                    </center>
                     <br>
                 <c:set var="list" value="${requestScope.LIST}"></c:set>
                 <div>${requestScope.NOT_DELETE}</div>
                 <c:if test="${list!=null}">
                     <c:if test="${not empty list}">
-                        <table border="1" class="table table-hover">
-                            <thead class="thead-dark">
-                                <tr>
-                                    <th>No.</th>
-                                    <th>Subject ID</th>
-                                    <th>Question Content</th>
-                                    <th>Answer A</th>
-                                    <th>Answer B</th>
-                                    <th>Answer C</th>
-                                    <th>Answer D</th>
-                                    <th>Correct Answer</th>
-                                    <th>Create Date</th>
-                                    <th>Update Date</th>
-                                    <th>Status</th>
-                                    <th>Update</th>
-                                    <th>Delete</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <c:forEach var="ques" items="${list}" varStatus="counter">
-                                <form action="AdminController" method="POST">
-                                    <tr>
-                                        <td>${counter.count}</td>
-                                        <td>
-                                            <select id="categoryCmb" name="txtSubjectID">
-                                                <c:forEach var="entry" items="${sub}">
-                                                    <option value="${entry.subjectID}"<c:if test="${entry.subjectID eq ques.subjectID}"> selected</c:if>>${entry.subjectID}</option>   
-                                                </c:forEach>
-                                            </select>
-                                        </td>
-                                        <td><input type="text" name="txtQuestionContent" value="${ques.questionContent}" maxlength="300"></td>
-                                        <td><input type="text" name="txtA" value="${ques.answerA}" maxlength="300"></td>
-                                        <td><input type="text" name="txtB" value="${ques.answerB}" maxlength="300"></td>
-                                        <td><input type="text" name="txtC" value="${ques.answerC}" maxlength="300"></td>
-                                        <td><input type="text" name="txtD" value="${ques.answerD}" maxlength="300"></td>
-                                        <td>
-                                            <select name="txtCorrectAnswer" required>
-                                                <option value="A" <c:if test="${'A' eq ques.correctAnswer}"> selected</c:if>>A</option>
-                                                <option value="B" <c:if test="${'B' eq ques.correctAnswer}"> selected</c:if>>B</option>
-                                                <option value="C" <c:if test="${'C' eq ques.correctAnswer}"> selected</c:if>>C</option>
-                                                <option value="D" <c:if test="${'D' eq ques.correctAnswer}"> selected</c:if>>D</option>
-                                                </select>
-                                            </td>
-                                            <td>${ques.createDate}</td>
-                                        <td>${ques.updateDate}</td>
-
-                                        <td>
-                                            <input type="checkbox" name="txtStatus" <c:if test="${ques.status}">checked</c:if>/>
-                                            </td>
-                                            <td>
-                                                <input type="hidden" name="txtQuestionID" value="${ques.questionID}"/>
-                                            <input type="hidden" name="txtSearch" value="${param.search}"/>
-                                            <input type="submit" name="btnAction" value="Update">
-                                        </td>
-                                        <td>
-                                            <input type="submit" name="btnAction" value="Delete">
-                                        </td>
-                                    </tr>
-                                </form>
-                            </c:forEach>
-                            </tbody>
-                        </table>
+                        <div class="album py-5 bg-light">
+                            <div class="container">
+                                <div class="row row-cols-1 row-cols-sm-1 row-cols-md-2 g-2">
+                                    <c:forEach var="ques" items="${list}">
+                                        <form action="AdminController" method="POST">
+                                            <div class="col">
+                                                <div class="card text-black bg-info me-auto" style="width: 40rem;">
+                                                    <div class="card-header">
+                                                        Subject ID: <select id="categoryCmb" name="txtSubjectID">
+                                                            <c:forEach var="entry" items="${sub}">
+                                                                <option value="${entry.subjectID}"<c:if test="${entry.subjectID eq ques.subjectID}"> selected</c:if>>${entry.subjectID}</option>   
+                                                            </c:forEach>
+                                                        </select>
+                                                        Correct Answer: <select name="txtCorrectAnswer" required>
+                                                            <option value="A" <c:if test="${'A' eq ques.correctAnswer}"> selected</c:if>>A</option>
+                                                            <option value="B" <c:if test="${'B' eq ques.correctAnswer}"> selected</c:if>>B</option>
+                                                            <option value="C" <c:if test="${'C' eq ques.correctAnswer}"> selected</c:if>>C</option>
+                                                            <option value="D" <c:if test="${'D' eq ques.correctAnswer}"> selected</c:if>>D</option>
+                                                            </select>
+                                                            <div class="form-check form-switch">
+                                                                <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" name="txtStatus" <c:if test="${ques.status}">checked</c:if>>
+                                                                <label class="form-check-label" for="flexSwitchCheckDefault">Status</label>
+                                                            </div>
+                                                            <center>
+                                                                <h6>Create Date: ${ques.createDate}</h6>
+                                                            <h6>Update Date: ${ques.updateDate}</h6>
+                                                        </center>
+                                                    </div>
+                                                    <ul class="list-group list-group-flush">
+                                                        <li class="list-group-item"><label>Question:<textarea name="txtQuestionContent" maxlength="300" rows="2" cols="80">${ques.questionContent}</textarea></label></li>
+                                                        <li class="list-group-item"><label>A: <textarea name="txtA" maxlength="300" rows="2" cols="70">${ques.answerA}</textarea></label></li>
+                                                        <li class="list-group-item"><label>B: <textarea name="txtB" maxlength="300" rows="2" cols="70">${ques.answerB}</textarea></label></li>
+                                                        <li class="list-group-item"><label>C: <textarea name="txtC" maxlength="300" rows="2" cols="70">${ques.answerC}</textarea></label></li>
+                                                        <li class="list-group-item"><label>D: <textarea name="txtD" maxlength="300" rows="2" cols="70">${ques.answerD}</textarea></label></li>
+                                                    </ul>
+                                                    <div class="card-body">
+                                                        <input type="hidden" name="txtQuestionID" value="${ques.questionID}"/>
+                                                        <input type="hidden" name="txtSearch" value="${param.search}"/>
+                                                        <input class="btn btn-warning" type="submit" name="btnAction" value="Update">
+                                                        <input class="btn btn-danger" type="submit" name="btnAction" value="Delete">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </c:forEach>
+                                </div>
+                            </div>
+                        </div>
                         <br>
                         <!---------paging-------->
                         <c:if test="${a.numberPage != 0}">
-                            <div class="paging">
-                                <nav aria-label="Page navigation example">
-                                    <ul class="pagination">
-                                        <c:forEach begin="1" end="${requestScope.totalPages}" var="i">
-                                            <c:url var="page" value="SearchController">
+                            <nav aria-label="Page navigation example">
+                                <ul class="pagination justify-content-center">
+                                    <c:if test="${requestScope.index > 1}">
+                                        <li class="page-item">
+                                            <c:url var="previous" value="SearchController">
                                                 <c:param name="btnAction" value="Search"></c:param>
                                                 <c:param name="txtSearch" value="${requestScope.search}"></c:param>
                                                 <c:param name="Subject" value="${requestScope.sub}"></c:param>
-                                                <c:param name="index" value="${i}"></c:param>
+                                                <c:param name="index" value="${requestScope.index-1}"></c:param>
                                                 <c:param name="status" value="${requestScope.status}"></c:param>
                                             </c:url>
-                                            <li class="page-item"><a class="page-link" href="${page}">${i}</a></li>
+                                            <a class="page-link" href="${previous}" aria-label="Previous">
+                                                <span aria-hidden="true">&laquo;</span>
+                                                <span class="sr-only"></span>
+                                            </a>
+                                        </li>
+                                    </c:if>
+                                    <c:forEach begin="1" end="${requestScope.totalPages}" var="i">
+                                        <c:url var="page" value="SearchController">
+                                            <c:param name="btnAction" value="Search"></c:param>
+                                            <c:param name="txtSearch" value="${requestScope.search}"></c:param>
+                                            <c:param name="Subject" value="${requestScope.sub}"></c:param>
+                                            <c:param name="index" value="${i}"></c:param>
+                                            <c:param name="status" value="${requestScope.status}"></c:param>
+                                        </c:url>
+                                        <li class="page-item"><a class="page-link" href="${page}">${i}</a></li>
 
-                                        </c:forEach>
+                                    </c:forEach>
 
-                                    </ul>
-                                </nav>
-                            </div>
+                                    <c:if test="${requestScope.index < requestScope.totalPages}">
+                                        <li class="page-item">
+                                            <c:url var="next" value="SearchController">
+                                                <c:param name="btnAction" value="Search"></c:param>
+                                                <c:param name="txtSearch" value="${requestScope.search}"></c:param>
+                                                <c:param name="Subject" value="${requestScope.sub}"></c:param>
+                                                <c:param name="index" value="${requestScope.index+1}"></c:param>
+                                                <c:param name="status" value="${requestScope.status}"></c:param>
+                                            </c:url>
+                                            <a class="page-link" href="${next}" aria-label="Next">
+                                                <span aria-hidden="true">&raquo;</span>
+                                                <span class="sr-only"></span>
+                                            </a>
+                                        </li>
+                                    </c:if>
+                                </ul>
+                            </nav>
                         </c:if>
                     </c:if>
                 </c:if>

@@ -18,12 +18,10 @@
         <link rel="stylesheet" type="text/css" href="css/quiz.css">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.4/css/bootstrap.min.css" />
         <script src="https://code.jquery.com/jquery-3.2.1.js" ></script>
-        <!-- JS tạo nút bấm di chuyển trang start -->
         <script src="http://1892.yn.lt/blogger/JQuery/Pagging/js/jquery.twbsPagination.js" type="text/javascript"></script>
-        <!-- JS tạo nút bấm di chuyển trang end -->
         <script type="text/javascript">
             $(function () {
-                var pageSize = 1; // Hiển thị 6 sản phẩm trên 1 trang
+                var pageSize = 1;
                 showPage = function (page) {
                     $(".contentPage").hide();
                     $(".contentPage").each(function (n) {
@@ -32,9 +30,9 @@
                     });
                 }
                 showPage(1);
-                ///** Cần truyền giá trị vào đây **///
-                var totalRows = ${sessionScope.TOTAL_PAGE}; // Tổng số sản phẩm hiển thị
-                var btnPage = 10; // Số nút bấm hiển thị di chuyển trang
+
+                var totalRows = ${sessionScope.TOTAL_PAGE};
+                var btnPage = 10;
                 var iTotalPages = Math.ceil(totalRows / pageSize);
 
                 var obj = $('#pagination').twbsPagination({
@@ -51,9 +49,8 @@
         <style>
             #pagination {
                 display: flex;
-                display: -webkit-flex; /* Safari 8 */
+                display: -webkit-flex; 
                 flex-wrap: wrap;
-                -webkit-flex-wrap: wrap; /* Safari 8 */
                 justify-content: center;
                 -webkit-justify-content: center;
             }
@@ -112,8 +109,8 @@
         <c:set var="ques" value="${sessionScope.QUIZ.list}"/>
         <form action="FinishQuizController" method="POST" id="submit">
             <div class="btnFinish">
-                    <input type="submit" class="btn btn-primary btn-lg" value="Finish">
-                </div>
+                <input type="submit" class="btn btn-primary btn-lg" value="Finish">
+            </div>
             <c:forEach var="q" items="${ques}" varStatus="counter">
                 <div class="contentPage">
                     <div class="list-group">

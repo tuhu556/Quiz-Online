@@ -65,6 +65,7 @@ public class SearchController extends HttpServlet {
                 request.setAttribute("sub", subject);
                 request.setAttribute("LIST", list);
                 request.setAttribute("status", txtStatus);
+                request.setAttribute("index", indexPage);
                 url = SUCCESS;
             } else {
                 url = ERROR;
